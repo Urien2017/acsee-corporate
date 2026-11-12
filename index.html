@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f2942">
+  <meta name="description" content="Acsee Corporate — plateforme B2B de produits hygiéniques au Cameroun.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Acsee Corporate">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>Acsee Corporate | Hygiène B2B</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar border-bottom">
+      <nav class="navbar navbar-expand-lg navbar-dark container-xl py-3" aria-label="Navigation principale">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="#" data-view-target="store-view">
+          <span class="brand-mark"><i class="bi bi-droplet-half"></i></span>
+          <span>
+            <span class="brand-name d-block">Acsee <span>Corporate</span></span>
+            <small class="brand-subtitle">Hygiène en gros · Québec</small>
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
+            <button class="nav-link active" data-view-target="store-view"><i class="bi bi-shop me-2"></i>Boutique B2B</button>
+            <button class="nav-link" data-view-target="warehouse-view"><i class="bi bi-box-seam me-2"></i>Entrepôt</button>
+            <button class="nav-link" data-view-target="cockpit-view"><i class="bi bi-speedometer2 me-2"></i>Cockpit propriétaire</button>
+          </div>
+          <div class="nav-actions ms-lg-4 mt-3 mt-lg-0">
+            <button class="btn btn-light btn-cart position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
+              <i class="bi bi-bag me-2"></i>Panier <span class="cart-count badge rounded-pill">0</span>
+            </button>
+            <button class="btn btn-install d-none" id="installAppBtn"><i class="bi bi-phone me-2"></i>Installer</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xl py-4 py-lg-5">
+      <section id="store-view" class="app-view active-view" aria-labelledby="store-title">
+        <div class="hero-panel mb-4 mb-lg-5">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <div class="eyebrow"><span class="status-dot"></span> Portail grossistes · Cameroun</div>
+              <h1 id="store-title" class="display-5 fw-bold mt-3 mb-3">Votre chaîne d'approvisionnement,<br><span class="text-emerald">toujours propre.</span></h1>
+              <p class="hero-copy mb-4">Commandez vos essentiels d'hygiène en cartons, avec des prix transparents et une livraison suivie depuis notre entrepôt de Douala.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="soft-pill"><i class="bi bi-truck me-2"></i>Livraison Grand Douala</span>
+                <span class="soft-pill"><i class="bi bi-shield-check me-2"></i>Facturation B2B</span>
+                <span class="soft-pill"><i class="bi bi-lightning-charge me-2"></i>Stock en direct</span>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="hero-summary">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="summary-label">Disponibilité aujourd'hui</span>
+                  <i class="bi bi-arrow-up-right text-emerald fs-5"></i>
+                </div>
+                <div class="summary-value" id="heroStockValue">—</div>
+                <div class="summary-caption">cartons prêts à expédier</div>
+                <div class="progress mt-4" role="progressbar" aria-label="Disponibilité du stock"><div class="progress-bar" id="heroStockProgress" style="width: 78%"></div></div>
+                <div class="d-flex justify-content-between mt-2 small text-muted"><span>Capacité entrepôt</span><span id="heroStockPercent">78%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
+          <div><span class="eyebrow text-muted">Catalogue professionnel</span><h2 class="h3 mb-0 mt-1">Les essentiels de votre activité</h2></div>
+          <div class="search-wrap"><i class="bi bi-search"></i><input id="productSearch" class="form-control" type="search" placeholder="Rechercher un produit" aria-label="Rechercher un produit"></div>
+        </div>
+        <div class="filter-bar d-flex flex-wrap gap-2 mb-4" id="categoryFilters" role="tablist" aria-label="Filtrer par catégorie"></div>
+        <div class="row g-3 g-xl-4" id="productGrid"></div>
+      </section>
+
+      <section id="warehouse-view" class="app-view" aria-labelledby="warehouse-title">
+        <div class="page-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+          <div><div class="eyebrow text-muted">Opérations · Douala</div><h1 id="warehouse-title" class="h2 mb-2 mt-1">Gestion entrepôt & logistique</h1><p class="text-muted mb-0">Pilotez les niveaux de stock et préparez les expéditions clients.</p></div>
+          <div class="d-flex gap-2"><span class="live-badge"><span class="status-dot"></span> Synchronisé</span><button class="btn btn-outline-primary" data-view-target="cockpit-view"><i class="bi bi-bar-chart-line me-2"></i>Voir les KPIs</button></div>
+        </div>
+        <div class="row g-3 mb-4" id="warehouseSummary"></div>
+        <div class="row g-4">
+          <div class="col-xl-7">
+            <div class="card app-card h-100">
+              <div class="card-header d-flex justify-content-between align-items-center"><div><h2 class="h5 mb-1">Niveaux de stock</h2><p class="text-muted small mb-0">Seuil critique fixé à 10 cartons</p></div><span class="badge rounded-pill badge-soft" id="stockAlertCount">0 alerte</span></div>
+              <div class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Produit</th><th>Catégorie</th><th>Stock</th><th>Valorisation</th><th class="text-end">Action</th></tr></thead><tbody id="stockTableBody"></tbody></table></div>
+            </div>
+          </div>
+          <div class="col-xl-5">
+            <div class="card app-card h-100">
+              <div class="card-header d-flex justify-content-between align-items-center"><div><h2 class="h5 mb-1">Commandes clients</h2><p class="text-muted small mb-0">Préparation et encaissement</p></div><span class="badge rounded-pill badge-emerald" id="pendingOrderCount">0 en attente</span></div>
+              <div class="order-list" id="ordersList"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cockpit-view" class="app-view" aria-labelledby="cockpit-title">
+        <div class="cockpit-head d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
+          <div><div class="eyebrow text-muted">Vue direction · mise à jour instantanée</div><h1 id="cockpit-title" class="h2 mb-2 mt-1">Bonjour, Jean-Pierre <span class="wave">👋</span></h1><p class="text-muted mb-0">Voici ce qui se passe chez Acsee Corporate aujourd'hui.</p></div>
+          <div class="d-flex align-items-center gap-2"><span class="date-chip"><i class="bi bi-calendar3 me-2"></i><span id="currentDateLabel"></span></span></div>
+        </div>
+        <div class="row g-3 mb-4" id="kpiGrid"></div>
+        <div class="row g-4">
+          <div class="col-xl-8">
+            <div class="card app-card chart-card h-100"><div class="card-header d-flex justify-content-between align-items-center"><div><h2 class="h5 mb-1">Ventes de la semaine</h2><p class="text-muted small mb-0">Chiffre d'affaires encaissé · FCFA</p></div><span class="trend-chip"><i class="bi bi-graph-up-arrow me-1"></i><span id="weeklyTrend">+0%</span></span></div><div class="chart-wrap"><canvas id="salesChart" aria-label="Graphique des ventes de la semaine"></canvas></div></div>
+          </div>
+          <div class="col-xl-4">
+            <div class="card app-card h-100 notification-card"><div class="card-header d-flex justify-content-between align-items-center"><div><h2 class="h5 mb-1">Activité récente</h2><p class="text-muted small mb-0">Alertes métier simulées</p></div><span class="pulse-label"><span class="status-dot"></span> Live</span></div><div class="notification-feed" id="notificationFeed"></div></div>
+          </div>
+        </div>
+        <div class="mobile-tip mt-4"><i class="bi bi-phone me-2"></i><span><strong>Astuce propriétaire :</strong> ajoutez cette page à l'écran d'accueil pour suivre l'activité même en déplacement.</span><button class="btn btn-sm btn-link ms-auto" id="mobileInstallHint">Comment faire ?</button></div>
+      </section>
+    </main>
+
+    <footer class="footer border-top mt-auto"><div class="container-xl py-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"><div class="d-flex align-items-center gap-2 text-muted small"><span class="footer-mark"><i class="bi bi-droplet-half"></i></span><span>© 2026 Acsee Corporate · Prototype de démonstration</span></div><div class="d-flex align-items-center gap-3"><span class="small text-muted"><i class="bi bi-lock me-1"></i>Données locales uniquement</span><button class="btn btn-link btn-sm text-muted p-0" id="resetDemoBtn">Réinitialiser la démo</button></div></div></footer>
+  </div>
+
+  <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartTitle">
+    <div class="offcanvas-header border-bottom"><div><div class="eyebrow text-muted">Commande B2B</div><h2 class="h4 mb-0 mt-1" id="cartTitle">Votre panier <span class="cart-count badge rounded-pill ms-1">0</span></h2></div><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button></div>
+    <div class="offcanvas-body d-flex flex-column"><div id="cartItems" class="cart-items flex-grow-1"></div><div class="cart-checkout border-top pt-4 mt-4"><div class="d-flex justify-content-between align-items-center mb-3"><span class="text-muted">Total commande</span><strong class="h4 mb-0" id="cartTotal">0 FCFA</strong></div><label class="form-label small fw-semibold" for="cartClient">Client facturé</label><select class="form-select mb-3" id="cartClient"></select><div class="payment-selector mb-3"><div class="form-label small fw-semibold mb-2">Mode de paiement</div><label class="payment-option"><input type="radio" name="paymentMethod" value="MTN MoMo" checked><span class="payment-logo mtn">M</span><span>MTN MoMo</span></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Orange Money"><span class="payment-logo orange">O</span><span>Orange Money</span></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Virement bancaire"><span class="payment-logo bank"><i class="bi bi-bank"></i></span><span>Virement bancaire</span></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Paiement à la livraison"><span class="payment-logo delivery"><i class="bi bi-truck"></i></span><span>Paiement à la livraison</span></label></div><button class="btn btn-primary w-100 py-3" id="placeOrderBtn"><i class="bi bi-check2-circle me-2"></i>Valider la commande</button><p class="text-muted small text-center mt-3 mb-0"><i class="bi bi-shield-check me-1"></i>Démo sécurisée · aucun paiement réel</p></div></div>
+  </div>
+
+  <div class="modal fade" id="deliveryModal" tabindex="-1" aria-labelledby="deliveryModalTitle" aria-hidden="true"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header no-print"><div><div class="eyebrow text-muted">Document logistique</div><h2 class="h4 mb-0 mt-1" id="deliveryModalTitle">Bon de Livraison</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button></div><div class="modal-body p-0" id="deliveryNoteContent"></div><div class="modal-footer no-print"><button class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button><button class="btn btn-primary" id="printDeliveryBtn"><i class="bi bi-printer me-2"></i>Imprimer le BL</button></div></div></div></div>
+  <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
